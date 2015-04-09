@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:category_id) %></th>
+      <th><%= model_class.human_attribute_name(:category) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:location) %></th>
       <th><%= model_class.human_attribute_name(:expiration_date) %></th>
@@ -22,7 +22,7 @@
     <% @activities.each do |activity| %>
       <tr>
         <td><%= link_to activity.id, activity_path(activity) %></td>
-        <td><%= activity.category_id %></td>
+        <td><%= activity.category.name %></td>
         <td><%= activity.name %></td>
         <td><%= activity.location %></td>
         <td><%= activity.expiration_date %></td>

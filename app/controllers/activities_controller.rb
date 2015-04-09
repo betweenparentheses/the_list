@@ -1,7 +1,8 @@
 class ActivitiesController < ApplicationController
+  layout "scaffold"
 
   def index
-    @activities = Activity.all
+    @activities = Activity.includes(:category).all
   end
 
   def show
@@ -14,6 +15,14 @@ class ActivitiesController < ApplicationController
 
   def create
     @activity = Activity.new(activities_params)
+
+
+    if @activity.save
+      redirect_to @activity
+    else
+      flash.now[:warning] = "Failed to create\n#{@activity.errors.inspect}"
+      render :new
+    end
   end
 
 
@@ -23,6 +32,14 @@ class ActivitiesController < ApplicationController
 
   def update
     @activity = Activity.find(params[:id])
+
+
+    if @activity.update(activities_params)
+      redirect_to @activity
+    else
+      flash.now[:warning] = "Failed to update\n#{@activity.errors.inspect}"
+      render :new
+    end
   end
 
   def delete
@@ -39,8 +56,7 @@ class ActivitiesController < ApplicationController
   private
 
   def activities_params
-    fail
-    params.require(:activities).permit(:name)
+    params.require(:activity).permit(:name, :id, :category_id, :description, :location, :expiration_date, :done)
   end
 
 end

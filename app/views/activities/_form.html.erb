@@ -18,7 +18,7 @@
   <div class="control-group">
     <%= f.label :category_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :category_id, :class => 'form-control' %>
+      <%= f.collection_select :category_id, Category.all, :id, :name, :class => 'form-control' %>
     </div>
     <%= error_span(@activity[:category_id]) %>
   </div>
@@ -39,39 +39,27 @@
   <div class="control-group">
     <%= f.label :expiration_date, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :expiration_date, :class => 'form-control' %>
+      <%= f.date_field :expiration_date, :class => 'form-control' %>
     </div>
     <%= error_span(@activity[:expiration_date]) %>
   </div>
   <div class="control-group">
     <%= f.label :description, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :description, :class => 'form-control' %>
+      <%= f.text_area :description, :class => 'form-control' %>
     </div>
     <%= error_span(@activity[:description]) %>
   </div>
-  <div class="control-group">
-    <%= f.label :latitude, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :latitude, :class => 'form-control' %>
-    </div>
-    <%= error_span(@activity[:latitude]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :longitude, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :longitude, :class => 'form-control' %>
-    </div>
-    <%= error_span(@activity[:longitude]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :done, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :done, :class => 'form-control' %>
-    </div>
-    <%= error_span(@activity[:done]) %>
-  </div>
 
+  <% if @activity.persisted? %>
+    <div class="control-group">
+      <%= f.label :done, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.check_box :done %>
+      </div>
+      <%= error_span(@activity[:done]) %>
+    </div>
+  <% end %>
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

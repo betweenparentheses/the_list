@@ -73,6 +73,7 @@ GEM
     faker (1.4.3)
       i18n (~> 0.5)
     ffi (1.9.8)
+    geocoder (1.2.8)
     hike (1.2.3)
     i18n (0.7.0)
     jbuilder (2.2.12)
@@ -212,6 +213,7 @@ DEPENDENCIES
   database_cleaner
   factory_girl_rails
   faker
+  geocoder
   jbuilder (~> 2.0)
   jquery-rails
   launchy

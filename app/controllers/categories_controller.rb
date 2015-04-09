@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  layout "scaffold"
 
   def index
     @categories = Category.all
