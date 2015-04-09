@@ -1,0 +1,80 @@
+<%= form_for @activity, :html => { :class => "form-horizontal activity" } do |f| %>
+
+    <% if @activity.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@activity.errors.count, "error") %> prohibited this activity from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @activity.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :category_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :category_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@activity[:category_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@activity[:name]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :location, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :location, :class => 'form-control' %>
+    </div>
+    <%= error_span(@activity[:location]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :expiration_date, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :expiration_date, :class => 'form-control' %>
+    </div>
+    <%= error_span(@activity[:expiration_date]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :description, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :description, :class => 'form-control' %>
+    </div>
+    <%= error_span(@activity[:description]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :latitude, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :latitude, :class => 'form-control' %>
+    </div>
+    <%= error_span(@activity[:latitude]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :longitude, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :longitude, :class => 'form-control' %>
+    </div>
+    <%= error_span(@activity[:longitude]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :done, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :done, :class => 'form-control' %>
+    </div>
+    <%= error_span(@activity[:done]) %>
+  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            activities_path, :class => 'btn btn-default' %>
+
+<% end %>
