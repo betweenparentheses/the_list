@@ -2,7 +2,7 @@ class ActivitiesController < ApplicationController
   layout "scaffold"
 
   def index
-    @activities = Activity.includes(:category).all
+    @activities = Activity.includes(:category).order(:category_id)
   end
 
   def show
