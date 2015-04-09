@@ -18,7 +18,7 @@ class Activity < ActiveRecord::Base
 
   geocoded_by :location
   after_validation :geocode,
-  :if => ->(obj){ obj.location_changed? }
+  :if => ->(obj){  obj.location.present? && obj.location_changed? }
 
 
 
