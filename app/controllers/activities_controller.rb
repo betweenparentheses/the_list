@@ -3,6 +3,10 @@ class ActivitiesController < ApplicationController
 
   def index
     @activities = Activity.includes(:category).order(:category_id)
+    respond_to do |format|
+      format.html #index.html.erb
+      format.json { render json: @activities }
+    end
   end
 
   def show
