@@ -11,7 +11,7 @@ theList.config(['$routeProvider', function($routeProvider){
     })
     .when('/activities/:id', {
       templateUrl: './templates/activities/show.html',
-      controller: 'ActivitiesShowHtml'
+      controller: 'ActivitiesShowCtrl'
     })
     .otherwise({
       templateUrl: './templates/home.html',

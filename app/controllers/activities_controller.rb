@@ -11,6 +11,11 @@ class ActivitiesController < ApplicationController
 
   def show
     @activity = Activity.find(params[:id])
+
+    respond_to do |format|
+      format.html #show.html.erb
+      format.json { render json: @activity }
+    end
   end
 
   def new
