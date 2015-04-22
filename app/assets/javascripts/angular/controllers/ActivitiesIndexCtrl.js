@@ -6,14 +6,13 @@ theList.controller('ActivitiesIndexCtrl',
   $scope.activities = activities.activities;
   $scope.categories = activities.categories;
 
+  $scope.formData = {};
 
-  // $scope.viewActivity = function(id){
-  //   $location.url("/activities\/" + id );
-  // }
+  $scope.createActivity = function(){
+    console.log("createActivity() running");
+    activities.create($scope.formData);
+    $scope.formData = {};
+  };
 
-  $scope.name = "";
-  $scope.category = "";
-  $scope.location = "";
-  $scope.description = "";
-  $scope.expiration_date = "";
+
 }]);

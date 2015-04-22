@@ -1,6 +1,3 @@
-{{ categories }}
-
-
 <table class = "table">
 <thead>
   <th>Category</th>
@@ -12,19 +9,19 @@
   <th>Created At</th>
 </thead>
   <tbody>
-
     <tr>
-      <td><input ng-model="category" class = "form-control"></td>
-      <td><input ng-model="name" class = "form-control"></td>
-      <td><input ng-model="location" class = "form-control"></td>
-      <td><input ng-model="description" class = "form-control"></td>
-      <td><input type = "date" ng-model="expiration_date" class = "form-control"></td>
-      <td><button ng-click="submitForm()" class = "form-control btn btn-primary">Submit</button></td>
-      <td></td>
+        <td><input type = "text" ng-model="formData.category" class = "form-control"></td>
+        <td><input type = "text" ng-model="formData.name" class = "form-control"></td>
+        <td><input type = "text" ng-model="formData.location" class = "form-control"></td>
+        <td><input type = "text" ng-model="formData.description" class = "form-control"></td>
+        <td><input type = "date" ng-model="formData.expiration_date" class = "form-control"></td>
+        <td><button ng-click="createActivity()" class= "form-control btn btn-primary">Submit</button></td>
+        <td></td>
     </tr>
+
     <tr ng-repeat="activity in activities">
       <td>{{ activity.category.name }}</td>
-      <td ng-click="viewActivity(activity.id)">{{ activity.name }}</td>
+      <td><a href="" ng-click="viewActivity(activity.id)">{{ activity.name }}</a></td>
       <td>{{ activity.location }}</td>
       <td>{{ activity.description}}</td>
       <td>{{ activity.expiration_date }}</td>
