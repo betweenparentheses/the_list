@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require angular
+//= require angular-cookies
 //= require static_pages
 //= require_tree .

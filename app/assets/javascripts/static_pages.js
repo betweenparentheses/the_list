@@ -3,6 +3,7 @@
 'use strict';
 var theList = angular.module('theList', ['ui.router']);
 
+
 theList.config(['$stateProvider',
   '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider){
