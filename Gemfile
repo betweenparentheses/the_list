@@ -31,6 +31,7 @@ gem 'aws-sdk-core', '~> 2.0'
 gem 'bcrypt'
 gem 'unicorn'
 gem 'angular_rails_csrf'
+gem 'rails_12factor'
 
 
 group :development do
