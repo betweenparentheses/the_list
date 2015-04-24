@@ -14,7 +14,7 @@ theList.factory('activities', ['$http', function($http){
 
   o.create = function(formData){
 
-    return $http.post('./activities', formData).success(function(data){
+    return $http.post('./activities.json', formData).success(function(data){
       console.log(data);
       o.activities.push(data);
       return data;

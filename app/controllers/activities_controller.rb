@@ -26,11 +26,14 @@ class ActivitiesController < ApplicationController
   def create
     @activity = Activity.new(activities_params)
 
-    if @activity.save
-      redirect_to @activity
-    else
-      flash.now[:warning] = "Failed to create\n#{@activity.errors.inspect}"
-      render :new
+    respond_to do |format|
+      if @activity.save
+        format.html{redirect_to @activity}
+        format.json{ render json: @activity.to_json({ include: [:category]}) }
+      else
+        flash.now[:warning] = "Failed to create\n#{@activity.errors.inspect}"
+        render :new
+      end
     end
   end
 
