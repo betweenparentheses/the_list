@@ -8,7 +8,7 @@ theList.controller('ActivitiesIndexCtrl',
 
 
   $scope.formData = {};
-  $scope.formData.category = $scope.categories[0];
+  $scope.formData.category = $scope.categories[0].name;
 
   $scope.createActivity = function(){
     activities.create($scope.formData);
