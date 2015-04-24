@@ -10,14 +10,26 @@ theList.factory('activities', ['$http', function($http){
         return elem.category.name;
       });
     });
-  }
+  };
 
   o.create = function(formData){
 
     return $http.post('./activities', formData).success(function(data){
+      console.log(data);
+      o.activities.push(data);
       return data;
-    })
-  }
+    });
+  };
+
+  o.delete = function(activity){
+
+    return $http.delete('./activities/'+ activity.id+'.json').success(function(data){
+      var index = o.activities.indexOf(activity);
+      if(index > -1){ o.activities.splice(index); }
+
+      return data;
+    });
+  };
 
 
   return o;

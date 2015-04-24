@@ -9,9 +9,12 @@ theList.controller('ActivitiesIndexCtrl',
   $scope.formData = {};
 
   $scope.createActivity = function(){
-    console.log("createActivity() running");
     activities.create($scope.formData);
     $scope.formData = {};
+  };
+
+  $scope.deleteActivity = function(activity){
+    activities.delete(activity);
   };
 
 

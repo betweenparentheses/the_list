@@ -1,5 +1,6 @@
 class ActivitiesController < ApplicationController
   layout "scaffold"
+  respond_to :html, :json
 
   def index
     @activities = Activity.includes(:category).order(:category_id)
@@ -24,7 +25,6 @@ class ActivitiesController < ApplicationController
 
   def create
     @activity = Activity.new(activities_params)
-
 
     if @activity.save
       redirect_to @activity
@@ -51,21 +51,26 @@ class ActivitiesController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @activity = Activity.find(params[:id])
 
-    if @activity.destroy
-      redirect_to activities_url
-    else
-      flash.now[:warning] = "Deletion failed for some reason. \n #{@activity.errors.inspect}"
-      render :show
+    respond_to do |format|
+      if @activity.destroy
+        format.html { redirect_to activities_url }
+        format.json { render json: @activities }
+      else
+        flash.now[:warning] = "Deletion failed for some reason. \n #{@activity.errors.inspect}"
+        render :show
+      end
     end
   end
 
   private
-
   def activities_params
-    params.require(:activity).permit(:name, :id, :category_id, :description, :location, :expiration_date, :done)
+    params.require(:activity).
+          permit(:name, :id, :category_id, :description, :location,
+                 :expiration_date, :done).
+          merge({ category_id: Category.find_by_name(params[:category]).id})
   end
 
 end

@@ -7,6 +7,7 @@
   <th>Expiration Date</th>
   <th>Done?</th>
   <th>Created At</th>
+  <th>Delete?</th>
 </thead>
   <tbody>
     <tr>
@@ -27,6 +28,7 @@
       <td>{{ activity.expiration_date }}</td>
       <td>{{ activity.done }}</td>
       <td>{{ activity.created_at }}</td>
+      <td><button class = "btn btn-warning" ng-click = "deleteActivity(activity)">Delete?</button></td>
     </tr>
 
   </tbody>
