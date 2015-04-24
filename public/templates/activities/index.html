@@ -11,7 +11,7 @@
 </thead>
   <tbody>
     <tr>
-        <td><input type = "text" ng-model="formData.category" class = "form-control"></td>
+        <td><select ng-model="formData.category" ng-options="category.name as category.name for category in categories"></select>
         <td><input type = "text" ng-model="formData.name" class = "form-control"></td>
         <td><input type = "text" ng-model="formData.location" class = "form-control"></td>
         <td><input type = "text" ng-model="formData.description" class = "form-control"></td>
@@ -20,8 +20,8 @@
         <td></td>
     </tr>
 
-    <tr ng-repeat="activity in activities">
-      <td>{{ activity.category.name }}</td>
+    <tr ng-repeat="activity in activities | orderBy: created_at">
+      <td>{{ getCategory(activity) }}</td>
       <td><a href="" ng-click="viewActivity(activity.id)">{{ activity.name }}</a></td>
       <td>{{ activity.location }}</td>
       <td>{{ activity.description}}</td>

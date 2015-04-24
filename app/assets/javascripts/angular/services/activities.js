@@ -2,13 +2,19 @@ theList.factory('activities', ['$http', function($http){
   var o = {};
   o.activities = [];
   o.categories = [];
+  o.categoryHash = {};
 
   o.getAll = function(){
     return $http.get('./activities.json').success(function(data){
-      o.activities = data;
-      o.categories = data.map(function(elem, i, arr){
-        return elem.category.name;
-      });
+      console.log(data.activities);
+      console.log(data.categories);
+      o.activities = data.activities;
+      o.categories = data.categories;
+
+      angular.forEach(data.categories, function(elem){
+        o.categoryHash[elem.id] = elem.name;
+      })
+
     });
   };
 
@@ -31,6 +37,9 @@ theList.factory('activities', ['$http', function($http){
     });
   };
 
+  o.getCategory = function(activity){
+    return o.categoryHash[activity.category_id];
+  };
 
   return o;
 

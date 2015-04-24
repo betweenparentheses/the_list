@@ -6,6 +6,7 @@ theList.controller('ActivitiesIndexCtrl',
   $scope.activities = activities.activities;
   $scope.categories = activities.categories;
 
+
   $scope.formData = {};
 
   $scope.createActivity = function(){
@@ -15,6 +16,10 @@ theList.controller('ActivitiesIndexCtrl',
 
   $scope.deleteActivity = function(activity){
     activities.delete(activity);
+  };
+
+  $scope.getCategory = function(activity){
+    return activities.getCategory(activity);
   };
 
 

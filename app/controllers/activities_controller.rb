@@ -6,7 +6,8 @@ class ActivitiesController < ApplicationController
     @activities = Activity.includes(:category).order(:category_id)
     respond_to do |format|
       format.html #index.html.erb
-      format.json { render json: @activities.to_json(include: [:category]) }
+      format.json { render json: { activities: @activities,
+                                   categories: Category.all } }
     end
   end
 
