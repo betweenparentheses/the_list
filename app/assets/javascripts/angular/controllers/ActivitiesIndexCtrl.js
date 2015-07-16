@@ -23,5 +23,9 @@ theList.controller('ActivitiesIndexCtrl',
     return activities.getCategory(activity);
   };
 
+  $scope.parseDate() = function(date){
+    return new Date(date);
+  }
+
 
 }]);

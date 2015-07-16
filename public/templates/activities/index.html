@@ -23,7 +23,7 @@
         <td></td>
     </tr>
 
-    <tr ng-repeat="activity in activities | orderBy: created_at">
+    <tr ng-repeat="activity in activities | orderBy: -parseDate(updated_at)">
       <td>{{ getCategory(activity) }}</td>
       <td><a href="" ng-click="viewActivity(activity.id)">{{ activity.name }}</a></td>
       <td>{{ activity.location }}</td>
