@@ -1,4 +1,5 @@
 require 'mechanize'
+require 'pry'
 class FunCheap
   MECHANIZE = Mechanize.new
   EAST_URL = "http://eastbay.funcheap.com"
@@ -16,6 +17,9 @@ class FunCheap
     "#{SF_URL}/#{date.year}/#{date.month}/#{date.day}/"
   end
 
+  def events_today
+    events_on(Date.today)
+  end
 
   # returns array of hashes of events
   def events_on(date)
@@ -26,23 +30,48 @@ class FunCheap
 
     listings = page.search('div.tanbox')
 
-    # TODO: parse_listing method
-    # TODO: handle some more cases
-    listings.map do |listing|
-      table = listing.children[0].children[0]
-      link = listing.search('a').first
+    listings.map{ |l| parse_listing(l, date)}.
+             reject {|event| event[:name].nil? }
+  end
 
-      event_name = link.text.strip if link
-      event_href = link.attributes['href'].value if link
 
-      time_td = listing.search('td').first
-      time = Time.parse(time_td.text) if time_td
+  def parse_listing(listing, date)
+    link = listing.search('a').first
 
-      { name: event_name,
-        href: event_href,
-        date: date,
-        time: time }
+    event_name = link.text.strip if link
+    event_href = link.attributes['href'].value if link
+
+    if event_name && event_name =~ /\|/
+      event_name, location = event_name.split('|')[0..1]
     end
+
+    time_td = listing.search('td').first
+    time_text = time_td ? time_td.text : nil
+
+    if archive_meta = listing.search('.archive-meta')
+      location ||= archive_meta.text.split('|').last
+      location.strip! if location
+
+      time_text ||= archive_meta.text.scan(/\d+:\d{2}\s[a|p]m/)[0]
+    end
+
+    time = begin
+      Time.parse(time_text)
+    rescue
+      nil
+    end
+
+    { name: event_name,
+      href: event_href,
+      date: date,
+      time: time,
+      location: location }
   end
 
 end
+
+fun = FunCheap.new
+
+binding.pry
+
+puts "blah"
