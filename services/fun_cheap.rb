@@ -1,5 +1,8 @@
 require 'mechanize'
 require 'pry'
+require 'json' #required for activesupport
+require 'active_support/all'
+
 class FunCheap
   MECHANIZE = Mechanize.new
   EAST_URL = "http://eastbay.funcheap.com"
@@ -8,17 +11,25 @@ class FunCheap
   def initialize
   end
 
-  def weekend
-    @weekend ||= get_weekend
+  def next_7_days
+    @next_7_days ||= get_next_7_days
   end
+
+  def today
+    @today ||= events_on(Date.today)
+  end
+
+  private
 
 
   def path_for(date)
     "#{SF_URL}/#{date.year}/#{date.month}/#{date.day}/"
   end
 
-  def events_today
-    events_on(Date.today)
+  def get_next_7_days
+    (0..6).inject([]) do |memo_arr, d|
+      memo_arr + events_on( DateTime.parse(d.days.from_now.to_s) )
+    end
   end
 
   # returns array of hashes of events
@@ -27,7 +38,6 @@ class FunCheap
 
     path = path_for(date)
     page = MECHANIZE.get(path)
-
     listings = page.search('div.tanbox')
 
     listings.map{ |l| parse_listing(l, date)}.
@@ -65,13 +75,8 @@ class FunCheap
       href: event_href,
       date: date,
       time: time,
-      location: location }
+      location: location,
+      source_id: ListingSource.where(name: "FunCheap").first_or_create.id }
   end
 
 end
-
-fun = FunCheap.new
-
-binding.pry
-
-puts "blah"

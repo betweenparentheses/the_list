@@ -1,0 +1,38 @@
+<table class = "table">
+<thead>
+  <th>Name</th>
+  <th>Location</th>
+  <th>Description</th>
+  <th>Time</th>
+  <th>Date</th>
+  <th>Time</th>
+  <th>Created At</th>
+  <th>Delete?</th>
+</thead>
+  <tbody>
+    <tr>
+        <td>
+          <select class="form-control"
+                  ng-model="formData.category"
+                  ng-options="category.name as category.name for category in categories"></select>
+        <td><input type = "text" ng-model="formData.name" class = "form-control"></td>
+        <td><input type = "text" ng-model="formData.location" class = "form-control"></td>
+        <td><input type = "text" ng-model="formData.description" class = "form-control"></td>
+        <td><input type = "date" ng-model="formData.expiration_date" class = "form-control"></td>
+        <td><button ng-click="createActivity()" class= "form-control btn btn-primary">Submit</button></td>
+        <td></td>
+    </tr>
+
+    <tr ng-repeat="event in events | orderBy: -parseDate(Date)">
+      <td>{{ activity.name }}</td>
+      <td>{{ activity.location }}</td>
+      <td>{{ activity.description}}</td>
+      <td>{{ activity.time }}</td>
+      <td>{{ activity.date }}</td>
+      <td>{{ activity.done }}</td>
+      <td>{{ activity.created_at }}</td>
+      <td><button class = "btn btn-warning" ng-click = "deleteActivity(activity)">Delete?</button></td>
+    </tr>
+
+  </tbody>
+</table>
