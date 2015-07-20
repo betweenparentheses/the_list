@@ -1,6 +1,8 @@
 <table class = "table">
 <thead>
   <th>Name</th>
+  <th>Link</th>
+
   <th>Location</th>
   <th>Description</th>
   <th>Time</th>
@@ -24,13 +26,13 @@
     </tr>
 
     <tr ng-repeat="event in events | orderBy: -parseDate(Date)">
-      <td>{{ activity.name }}</td>
-      <td>{{ activity.location }}</td>
-      <td>{{ activity.description}}</td>
-      <td>{{ activity.time }}</td>
-      <td>{{ activity.date }}</td>
-      <td>{{ activity.done }}</td>
-      <td>{{ activity.created_at }}</td>
+      <td>{{ event.name }}</td>
+      <td>{{ event.location }}</td>
+      <td>{{ event.description}}</td>
+      <td>{{ event.time }}</td>
+      <td>{{ event.date }}</td>
+      <td>{{ event.done }}</td>
+      <td>{{ event.created_at }}</td>
       <td><button class = "btn btn-warning" ng-click = "deleteActivity(activity)">Delete?</button></td>
     </tr>
 

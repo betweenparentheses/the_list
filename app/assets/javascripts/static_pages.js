@@ -1,8 +1,14 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 'use strict';
-var theList = angular.module('theList', ['ui.router']);
+var theList = angular.module('theList', ['ui.router', 'restangular']);
 
+
+theList.config(['RestangularProvider',
+  function(RestangularProvider) {
+    RestangularProvider.setBaseUrl('/');
+    RestangularProvider.setRequestSuffix('.json');
+}]);
 
 theList.config(['$stateProvider',
   '$urlRouterProvider',
@@ -28,7 +34,11 @@ theList.config(['$stateProvider',
       templateUrl: './templates/home.html',
       controller: 'HomeCtrl'
     })
-
+    .state('discover', {
+      url: '/discover',
+      templateUrl: './templates/events/index.html',
+      controller: 'DiscoverCtrl'
+    })
     $urlRouterProvider.otherwise('home')
 }]);
 
