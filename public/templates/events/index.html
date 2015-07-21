@@ -24,7 +24,7 @@
         <td></td>
     </tr>
 
-    <tr ng-repeat="event in events | orderBy: -parseDate(Date)">
+    <tr ng-repeat="event in events | orderBy: -date">
       <td>{{ event.name }}</td>
       <td><a ng-href="{{ event.href }}">click here</a></td>
       <td>{{ event.location }}</td>
