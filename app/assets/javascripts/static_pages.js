@@ -39,7 +39,7 @@ theList.config(['$stateProvider',
       templateUrl: './templates/events/index.html',
       controller: 'DiscoverCtrl'
     })
-    $urlRouterProvider.otherwise('home')
+    $urlRouterProvider.otherwise('/')
 }]);
 
 

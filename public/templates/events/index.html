@@ -1,3 +1,6 @@
+<script src="https://apis.google.com/js/client.js">
+</script>
+
 <table class = "table">
   <thead>
     <th>Name</th>
@@ -7,6 +10,7 @@
     <th>Date</th>
     <th>Time</th>
     <th>Created At</th>
+    <th>Calendar It!</th>
     <th>Delete?</th>
   </thead>
 
@@ -31,6 +35,7 @@
       <td>{{ event.description}}</td>
       <td>{{ event.date | date : 'EEEE, M/d' }}</td>
       <td>{{ event.time | date : 'shortTime' }}</td>
+      <td><button class = "btn btn-info" ng-click = "createEvent(event)">Calendar Me</button> </td>
       <td>{{ event.created_at }}</td>
       <td><button class = "btn btn-warning" ng-click = "deleteActivity(activity)">Delete?</button></td>
     </tr>
