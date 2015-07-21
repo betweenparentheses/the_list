@@ -1,16 +1,15 @@
 <table class = "table">
-<thead>
-  <th>Name</th>
-  <th>Link</th>
+  <thead>
+    <th>Name</th>
+    <th>Link</th>
+    <th>Location</th>
+    <th>Description</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Created At</th>
+    <th>Delete?</th>
+  </thead>
 
-  <th>Location</th>
-  <th>Description</th>
-  <th>Time</th>
-  <th>Date</th>
-  <th>Time</th>
-  <th>Created At</th>
-  <th>Delete?</th>
-</thead>
   <tbody>
     <tr>
         <td>
@@ -27,11 +26,11 @@
 
     <tr ng-repeat="event in events | orderBy: -parseDate(Date)">
       <td>{{ event.name }}</td>
+      <td><a ng-href="{{ event.href }}">click here</a></td>
       <td>{{ event.location }}</td>
       <td>{{ event.description}}</td>
-      <td>{{ event.time }}</td>
-      <td>{{ event.date }}</td>
-      <td>{{ event.done }}</td>
+      <td>{{ event.date | date : 'EEEE, M/d' }}</td>
+      <td>{{ event.time | date : 'shortTime' }}</td>
       <td>{{ event.created_at }}</td>
       <td><button class = "btn btn-warning" ng-click = "deleteActivity(activity)">Delete?</button></td>
     </tr>

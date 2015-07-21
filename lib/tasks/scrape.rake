@@ -3,8 +3,8 @@ namespace :scrape do
   task funcheap: :environment do
     fun = FunCheap.new
 
-    fun.next_7_days.each do |fun|
-      Event.create!(fun)
+    fun.next_7_days.each do |event|
+      Event.create(event)
     end
   end
 

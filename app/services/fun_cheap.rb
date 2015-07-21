@@ -5,7 +5,6 @@ require 'active_support/all'
 
 class FunCheap
   MECHANIZE = Mechanize.new
-  EAST_URL = "http://eastbay.funcheap.com"
   SF_URL = "http://sf.funcheap.com"
 
   def initialize
@@ -71,12 +70,16 @@ class FunCheap
       nil
     end
 
+    description_p = listing.search('p').first
+    description = description_p.text if description_p
+
     { name: event_name,
       href: event_href,
       date: date,
       time: time,
       location: location,
-      source_id: ListingSource.where(name: "FunCheap").first_or_create.id }
+      description: description,
+      source_id: EventSource.where(name: "FunCheap").first_or_create.id }
   end
 
 end
