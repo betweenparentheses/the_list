@@ -9,7 +9,7 @@ theList.controller('DiscoverCtrl',
 
     $scope.createEvent = function(event){
       console.log(gApiCalendar);
-      gApiCalendar.startAuthFlow();
+      gApiCalendar.startAuthFlow(event);
     }
 
 

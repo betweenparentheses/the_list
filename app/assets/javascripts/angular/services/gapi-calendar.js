@@ -21,26 +21,6 @@ theList.factory('gApiCalendar', function(){
 
 
 
-  // /**
-  //  * Handle response from authorization server.
-  //  *
-  //  * @param {Object} authResult Authorization result.
-  //  */
-  // var handleAuthResult = function(authResult) {
-  //   var authorizeDiv = document.getElementById('authorize-div');
-  //   if (authResult && !authResult.error) {
-  //     // Hide auth UI, then load client library.
-  //     authorizeDiv.style.display = 'none';
-  //     loadCalendarApi();
-  //   } else {
-  //     // Show auth UI, allowing the user to initiate authorization by
-  //     // clicking authorize button.
-  //     authorizeDiv.style.display = 'inline';
-  //   }
-  // };
-
-
-
   /**
    * Initiate auth flow
    *
@@ -48,7 +28,9 @@ theList.factory('gApiCalendar', function(){
   returnObject.startAuthFlow = function(event) {
     gapi.auth.authorize(
       {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
-      loadCalendarApi);
+      function(){
+        loadCalendarApi(event);
+      });
     return false;
   };
 
@@ -58,8 +40,10 @@ theList.factory('gApiCalendar', function(){
    * Load Google Calendar client library. List upcoming events
    * once client library is loaded.
    */
-  var loadCalendarApi = function() {
-    gapi.client.load('calendar', 'v3', createEvent);
+  var loadCalendarApi = function(event) {
+    gapi.client.load('calendar', 'v3', function(){
+      createEvent(event);
+    });
   };
 
 
@@ -69,19 +53,34 @@ theList.factory('gApiCalendar', function(){
    * the authorized user's calendar. If no events are found an
    * appropriate message is printed.
    */
-  var createEvent = function() {
+  var createEvent = function(event) {
 
 
-    var d1 = new Date (),
-        d2 = new Date ( d1 );
-    d2.setMinutes ( d1.getMinutes() + 30 );
+
+    var dateTime = new Date(event.date);
+    var startTime;
+
+    var date = dateTime.getDate();
+
+
+    if(event.time){ startTime = new Date(event.time); }
+    if(startTime){
+      dateTime.setMinutes(startTime.getMinutes());
+      dateTime.setHours(startTime.getHours());
+      // fix time overflow issues
+      dateTime.setDate(date);
+    }
+
+    var d2 = new Date ( dateTime );
+    d2.setMinutes ( dateTime.getMinutes() + 60 );
+
 
     var resource = {
-      "summary": "A First Test",
-      "location": "somewhere quick",
-      "description": "More things to say about this",
+      "summary": event.name,
+      "location": event.location,
+      "description": event.description,
       "start": {
-        "dateTime": (d1.toISOString())
+        "dateTime": (dateTime.toISOString())
       },
       "end": {
         "dateTime": (d2.toISOString())
