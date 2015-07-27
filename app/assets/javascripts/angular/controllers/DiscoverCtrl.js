@@ -1,6 +1,9 @@
 theList.controller('DiscoverCtrl',
-  ['$scope', '$window', 'Restangular', 'googleLogin', 'googleCalendar',
-  function($scope, $window, Restangular, googleLogin, googleCalendar) {
+  ['$scope', '$window', '$filter', 'Restangular', 'googleLogin', 'googleCalendar',
+  function($scope, $window, $filter, Restangular, googleLogin, googleCalendar) {
+
+
+    $scope.createdEvents = [];
 
     $scope.login = function () {
         googleLogin.login();
@@ -24,8 +27,7 @@ theList.controller('DiscoverCtrl',
       if(startTime){
         dateTime.setMinutes(startTime.getMinutes());
         dateTime.setHours(startTime.getHours());
-        // fix time overflow issues
-        dateTime.setDate(date);
+        dateTime.setDate(date + 1);
       }
 
       var d2 = new Date ( dateTime );
@@ -49,9 +51,9 @@ theList.controller('DiscoverCtrl',
         'resource' : resource
       };
 
-      console.log(googleCalendar);
-      this.calendarItems = googleCalendar.createEvent(params);
 
+      this.createdEvents.push(googleCalendar.createEvent(params));
+      $window.alert('Reload your calendar! Created event: "' + event.name + '" on ' + $filter('date')(dateTime) + '!')
     };
 
 
