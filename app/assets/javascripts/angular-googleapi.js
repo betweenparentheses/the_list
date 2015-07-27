@@ -1,7 +1,7 @@
 angular.module('googleApi', [])
   .value('version', '0.1')
 
-    .service("googleApiBuilder", function($q) {
+    .service("googleApiBuilder", ['$q', function($q) {
         this.loadClientCallbacks = [];
 
         this.build = function(requestBuilder, responseTransformer) {
@@ -32,7 +32,7 @@ angular.module('googleApi', [])
                 this.loadClientCallbacks[i]();
             }
         };
-    })
+    }])
 
     .provider('googleLogin', function() {
 
@@ -75,7 +75,7 @@ angular.module('googleApi', [])
 
     })
 
-    .service("googleCalendar", function(googleApiBuilder, $rootScope) {
+    .service("googleCalendar", ['googleApiBuilder', '$rootScope', function(googleApiBuilder, $rootScope) {
 
         var self = this;
         var itemExtractor = function(resp) { return resp.items; };
@@ -92,4 +92,4 @@ angular.module('googleApi', [])
 
         });
 
-    })
+    }])
